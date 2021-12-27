@@ -4,6 +4,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.aeonbits.owner.ConfigFactory;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import utils.ConfigReader;
 
@@ -27,7 +28,9 @@ public class Base {
         System.out.println(config.browser());
         if(browserName.equalsIgnoreCase("chrome")){
             WebDriverManager.getInstance(CHROME).setup();
-            driver = new ChromeDriver();
+            ChromeOptions options = new ChromeOptions();
+            options.addArguments("--no-sandbox","--disable-gpu","--disable-extensions","--headless");
+            driver = new ChromeDriver(options);
         }else if(browserName.equalsIgnoreCase("firefox")){
             WebDriverManager.getInstance(FIREFOX).setup();
             driver = new FirefoxDriver();
