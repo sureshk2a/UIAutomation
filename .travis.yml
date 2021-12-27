@@ -1,0 +1,20 @@
+sudo: true
+dist: xenial
+cache: false
+addons:
+  chrome: stable
+language: java
+jdk:
+  - openjdk11
+stages:
+  - name: deploy_and_test
+    if: '(type = pull_request) OR (type = push)'
+
+jobs:
+  include:
+    - stage: deploy_and_test
+      name: deploy_and_test
+      script:
+        - java --version
+        - uptime
+        - mvn clean verify
